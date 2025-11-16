@@ -54,6 +54,16 @@ python MusicPlayer.py
 
 - Watch the progress bar track the song’s current position.
 
+## **OPTIONAL** Make it into an executable
+
+```bash
+pip install pyinstaller
+```
+
+```bash
+pyinstaller MusicPlayer.py --onefile --noconsole
+```
+
 ## Code Overview
 
 - songs = [f for f in os.listdir('.') if f.endswith('.mp3')] → Automatically loads all MP3 files in the folder
