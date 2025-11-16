@@ -2,6 +2,7 @@ import customtkinter
 import pygame
 from mutagen.mp3 import MP3
 import os
+
 pygame.mixer.init()
 
 customtkinter.set_appearance_mode("System")
@@ -12,21 +13,22 @@ root.geometry("600x600")
 root.attributes("-alpha", 0.9)
 root.resizable(False, False)
 songs = [f for f in os.listdir('.') if f.endswith('.mp3')]
-currentsong = songs[0]
 song_label = customtkinter.CTkLabel(
     root, text="", height=600, width=300,
     fg_color="grey", font=("Arial", 24),
     corner_radius=0, anchor="center", justify="center",
     text_color="black"
 )
-song_label.place(x=300,y=0)
+song_label.place(x=300, y=0)
 is_playing = False
-current_song = None
+current_song = songs[0]
 song_length = 1
 is_paused = False
 current_pos = 0
 fast_forward_amount = 10
 backward_amount = 10
+
+
 def pause_song():
     global is_paused, is_playing
     if is_playing and not is_paused:
@@ -35,40 +37,61 @@ def pause_song():
     elif is_playing and is_paused:
         pygame.mixer.music.unpause()
         is_paused = False
+
+
 pause_button = customtkinter.CTkButton(root, text="Pause", command=pause_song, corner_radius=0)
 pause_button.place(x=380, y=500)
 
-progress = customtkinter.CTkProgressBar(root,width=280, height=20,corner_radius=0)
+progress = customtkinter.CTkProgressBar(root, width=280, height=20, corner_radius=0)
 progress.place(x=310, y=550)
 progress.set(0)
+
 
 def play_song(song_name):
     global is_playing, is_paused, current_song, song_length, current_pos
     current_song = song_name
+    display_name = current_song
+    if len(current_song) > 25:
+        display_name = current_song[:25] + "..."
+    song_label.configure(text=display_name)
     audio = MP3(current_song)
     song_length = audio.info.length
     current_pos = 0
-    song_label.configure(text=current_song)
+    song_label.configure(text=display_name)
     pygame.mixer.music.load(current_song)
     pygame.mixer.music.play()
     is_playing = True
 
+
+# buttons
 y_pos = 10
 for s in songs:
-    btn = customtkinter.CTkButton(root, text=s, border_color="gray", hover_color="gray",command=lambda s=s: play_song(s))
+    display_name = s
+    if len(s) > 25:
+        display_name = s[:25] + "..."
+    btn = customtkinter.CTkButton(
+        root,
+        text=display_name,
+        border_color="gray",
+        hover_color="gray",
+        command=lambda s=s: play_song(s)  # capture the correct song
+    )
     btn.place(x=24, y=y_pos)
     y_pos += 40
+
 
 def update_progress():
     global current_pos
     if is_playing and current_song:
-        pos = current_pos+ pygame.mixer.music.get_pos()/ 1000
+        pos = current_pos + pygame.mixer.music.get_pos() / 1000
         progress.set(min(pos / song_length, 1))
     root.after(100, update_progress)
+
+
 def fast_forward():
     global current_pos, song_length, is_playing
 
-    if not is_playing or not currentsong:
+    if not is_playing or not current_song:
         return
     current_pos += fast_forward_amount
     if current_pos >= song_length:
@@ -77,6 +100,8 @@ def fast_forward():
     pygame.mixer.music.stop()
     pygame.mixer.music.load(current_song)
     pygame.mixer.music.play(start=current_pos)
+
+
 def rewind():
     global current_pos, current_song, is_playing
 
@@ -86,14 +111,17 @@ def rewind():
     current_pos -= backward_amount
     if current_pos < 0:
         current_pos = 0
-        
+
     pygame.mixer.music.stop()
     pygame.mixer.music.load(current_song)
     pygame.mixer.music.play(start=current_pos)
 
-rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind, height=27, width=30)
+
+rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind,
+                                        height=27, width=30)
 rewind_button.place(x=320, y=500)
-fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gray", corner_radius=0, command=fast_forward, height=27, width=30)
+fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gray", corner_radius=0,
+                                              command=fast_forward, height=27, width=30)
 fast_forward_button.place(x=550, y=500)
 
 update_progress()
