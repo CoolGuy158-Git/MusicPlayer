@@ -2,6 +2,10 @@
 
 A simple, lightweight music player built using Python, CustomTkinter, and Pygame. Play your .mp3 files, control playback, and monitor progress—all with a sleek, semi-transparent GUI.
 
+## Screenshot
+![Music Player Screenshot](Photo%20(2).png)
+
+
 ## Features
 
 Browse and play .mp3 files from the project folder
@@ -39,7 +43,7 @@ pip install customtkinter pygame mutagen
 - Run the Python script:
 
 ```bash
-python music_player.py
+python MusicPlayer.py
 ```
 
 - Click on a song button to play it.
