@@ -21,7 +21,7 @@ song_label = customtkinter.CTkLabel(
 )
 song_label.place(x=300, y=0)
 is_playing = False
-current_song = songs[0]
+current_song = songs[0] if songs else None
 song_length = 1
 is_paused = False
 current_pos = 0
