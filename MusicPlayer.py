@@ -83,12 +83,10 @@ def rewind():
     if not is_playing or not current_song:
         return
 
-    # Subtract the rewind amount
     current_pos -= backward_amount
     if current_pos < 0:
-        current_pos = 0  # don’t go before start
-
-    # Stop, reload the current song, and play from new position
+        current_pos = 0
+        
     pygame.mixer.music.stop()
     pygame.mixer.music.load(current_song)
     pygame.mixer.music.play(start=current_pos)
@@ -100,3 +98,4 @@ fast_forward_button.place(x=550, y=500)
 
 update_progress()
 root.mainloop()
+
