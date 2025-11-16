@@ -64,20 +64,19 @@ def play_song(song_name):
 
 
 # buttons
-y_pos = 10
+scroll_frame = customtkinter.CTkScrollableFrame(root, width=250, height=580)
+scroll_frame.place(x=10, y=10)
+
 for s in songs:
-    display_name = s
-    if len(s) > 25:
-        display_name = s[:25] + "..."
+    display_name = s if len(s) <= 25 else s[:25] + "..."
     btn = customtkinter.CTkButton(
-        root,
+        scroll_frame,
         text=display_name,
         border_color="gray",
         hover_color="gray",
-        command=lambda s=s: play_song(s)  # capture the correct song
+        command=lambda s=s: play_song(s)
     )
-    btn.place(x=24, y=y_pos)
-    y_pos += 40
+    btn.pack(pady=2)
 
 
 def update_progress():
@@ -126,4 +125,3 @@ fast_forward_button.place(x=550, y=500)
 
 update_progress()
 root.mainloop()
-
