@@ -13,11 +13,7 @@ root.geometry("600x600")
 root.attributes("-alpha", 0.9)
 root.resizable(False, False)
 songs = [f for f in os.listdir('.') if f.endswith('.mp3')]
-song_label = customtkinter.CTkLabel(
-    root, text="", height=600, width=300,
-    fg_color="grey", font=("Arial", 24),
-    corner_radius=0, anchor="center", justify="center",
-    text_color="black"
+song_label = customtkinter.CTkLabel(root, text="", height=600, width=300,fg_color="grey", font=("Arial", 24),corner_radius=0, anchor="center", justify="center",text_color="black"
 )
 song_label.place(x=300, y=0)
 is_playing = False
@@ -28,6 +24,9 @@ current_pos = 0
 fast_forward_amount = 10
 backward_amount = 10
 
+def set_volume(val):
+    volume = float(val)
+    pygame.mixer.music.set_volume(volume)
 
 def pause_song():
     global is_paused, is_playing
@@ -77,8 +76,9 @@ for s in songs:
         command=lambda s=s: play_song(s)
     )
     btn.pack(pady=2)
-
-
+volume_slider = customtkinter.CTkSlider(root, from_=0, to=1, number_of_steps=100, command=set_volume, width=250)
+volume_slider.place(x=325, y=580)
+volume_slider.set(0.5)
 def update_progress():
     global current_pos
     if is_playing and current_song:
@@ -116,11 +116,9 @@ def rewind():
     pygame.mixer.music.play(start=current_pos)
 
 
-rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind,
-                                        height=27, width=30)
+rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind,height=27, width=30)
 rewind_button.place(x=320, y=500)
-fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gray", corner_radius=0,
-                                              command=fast_forward, height=27, width=30)
+fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gray", corner_radius=0,command=fast_forward, height=27, width=30)
 fast_forward_button.place(x=550, y=500)
 
 update_progress()
