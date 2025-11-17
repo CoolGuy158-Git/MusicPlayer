@@ -95,10 +95,7 @@ def fast_forward():
     current_pos += fast_forward_amount
     if current_pos >= song_length:
         current_pos = song_length - 0.1
-
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(current_song)
-    pygame.mixer.music.play(start=current_pos)
+    pygame.mixer.music.set_pos(current_pos)
 
 
 def rewind():
@@ -110,10 +107,7 @@ def rewind():
     current_pos -= backward_amount
     if current_pos < 0:
         current_pos = 0
-
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(current_song)
-    pygame.mixer.music.play(start=current_pos)
+    pygame.mixer.music.set_pos(current_pos)
 
 
 rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind,height=27, width=30)
