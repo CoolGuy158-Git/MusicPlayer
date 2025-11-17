@@ -3,7 +3,7 @@
 A simple, lightweight music player built using Python, CustomTkinter, and Pygame. Play your .mp3 files, control playback, and monitor progress—all with a sleek, semi-transparent GUI.
 
 ## Screenshot
-![Music Player Screenshot](Screenshot%202025-11-16%20194418.png)
+![Music Player Screenshot](Screenshot%202025-11-17%20124524.png)
 
 
 ## Features
@@ -15,6 +15,8 @@ Play / Pause functionality
 Fast Forward and Rewind controls
 
 Progress Bar to show the current position of the song
+
+Volume Slider to set the volume to the desired frequency
 
 Simple and modern CustomTkinter GUI
 
