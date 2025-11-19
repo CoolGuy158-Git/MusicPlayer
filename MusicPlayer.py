@@ -13,6 +13,9 @@ root.geometry("600x600")
 root.attributes("-alpha", 0.9)
 root.resizable(False, False)
 songs = [f for f in os.listdir('.') if f.endswith('.mp3')]
+
+# this is the sidepart which shows what songs are playing 
+
 song_label = customtkinter.CTkLabel(root, text="", height=600, width=300,fg_color="grey", font=("Arial", 24),corner_radius=0, anchor="center", justify="center",text_color="black"
 )
 song_label.place(x=300, y=0)
