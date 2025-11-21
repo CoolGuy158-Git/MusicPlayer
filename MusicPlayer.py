@@ -1,23 +1,31 @@
+############################################################################################################################################################################
+#   MusicPlayer/Mp3 player - An opensource python project that uses customtkinter for the GUI, mutagen, and pygame to play the song along with os module to find the song  |
+#                                                                                                                                                                          |
+#   Under MIT license feel free to fork the code as long as you give credits                                                                                               |
+#                                                                                                                                                                          |
+#   Copyright 2025 CoolGuy158-Git, Original project: https://github.com/CoolGuy158-Git/MusicPlayer                                                                         |
+#                                                                                                                                                                          |
+############################################################################################################################################################################
 import customtkinter
 import pygame
 from mutagen.mp3 import MP3
 import os
 
 pygame.mixer.init()
-
-customtkinter.set_appearance_mode("System")
+modes = ["Dark", "Light", "system"]
+customtkinter.set_appearance_mode("system")
+colormode = customtkinter.get_appearance_mode()
 customtkinter.set_default_color_theme("blue")
 root = customtkinter.CTk()
 root.title("MusicPlayer")
 root.geometry("600x600")
 root.attributes("-alpha", 0.9)
-root.resizable(False, False)
+root.resizable(False, False) # TODO make it so that it automatically resizes everything when max window
+# access the mp3 in the folder
 songs = [f for f in os.listdir('.') if f.endswith('.mp3')]
-
-# this is the sidepart which shows what songs are playing 
-
 song_label = customtkinter.CTkLabel(root, text="", height=600, width=300,fg_color="grey", font=("Arial", 24),corner_radius=0, anchor="center", justify="center",text_color="black"
 )
+# Shows what song is playing
 song_label.place(x=300, y=0)
 is_playing = False
 current_song = songs[0] if songs else None
@@ -27,10 +35,7 @@ current_pos = 0
 fast_forward_amount = 10
 backward_amount = 10
 
-def set_volume(val):
-    volume = float(val)
-    pygame.mixer.music.set_volume(volume)
-
+# Pause
 def pause_song():
     global is_paused, is_playing
     if is_playing and not is_paused:
@@ -44,12 +49,9 @@ def pause_song():
 pause_button = customtkinter.CTkButton(root, text="Pause", command=pause_song, corner_radius=0)
 pause_button.place(x=380, y=500)
 
-progress = customtkinter.CTkProgressBar(root, width=280, height=20, corner_radius=0)
-progress.place(x=310, y=550)
-progress.set(0)
-
-
+# This actually plays the song
 def play_song(song_name):
+    global display_name
     global is_playing, is_paused, current_song, song_length, current_pos
     current_song = song_name
     display_name = current_song
@@ -66,6 +68,8 @@ def play_song(song_name):
 
 
 # buttons
+
+# This lets you scroll
 scroll_frame = customtkinter.CTkScrollableFrame(root, width=250, height=580)
 scroll_frame.place(x=10, y=10)
 
@@ -79,9 +83,19 @@ for s in songs:
         command=lambda s=s: play_song(s)
     )
     btn.pack(pady=2)
+
+# This is the volume button thing
+def set_volume(val):
+    volume = float(val)
+    pygame.mixer.music.set_volume(volume)
 volume_slider = customtkinter.CTkSlider(root, from_=0, to=1, number_of_steps=100, command=set_volume, width=250)
 volume_slider.place(x=325, y=580)
 volume_slider.set(0.5)
+
+# this updates the progress
+progress = customtkinter.CTkProgressBar(root, width=280, height=20, corner_radius=0)
+progress.place(x=310, y=550)
+progress.set(0)
 def update_progress():
     global current_pos
     if is_playing and current_song:
@@ -89,7 +103,7 @@ def update_progress():
         progress.set(min(pos / song_length, 1))
     root.after(100, update_progress)
 
-
+# This allows you to fast froward
 def fast_forward():
     global current_pos, song_length, is_playing
 
@@ -100,7 +114,7 @@ def fast_forward():
         current_pos = song_length - 0.1
     pygame.mixer.music.set_pos(current_pos)
 
-
+# rewind
 def rewind():
     global current_pos, current_song, is_playing
 
@@ -112,11 +126,20 @@ def rewind():
         current_pos = 0
     pygame.mixer.music.set_pos(current_pos)
 
-
+# The buttons for fastforward and rewind
 rewind_button = customtkinter.CTkButton(root, text="<-", border_color="gray", corner_radius=0, command=rewind,height=27, width=30)
 rewind_button.place(x=320, y=500)
 fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gray", corner_radius=0,command=fast_forward, height=27, width=30)
 fast_forward_button.place(x=550, y=500)
 
+# Darkmode or Lightmode toggle
+def toggle_light_dark():
+    global colormode
+    idx = modes.index(colormode)
+    colormode = modes[(idx + 1) % len(modes)]
+    customtkinter.set_appearance_mode(colormode)
+    toggle_button.configure(text=colormode)
+toggle_button = customtkinter.CTkButton(root,text=str(colormode), width=len(colormode), corner_radius=0, command=toggle_light_dark)
+toggle_button.place(x=300, y=0)
 update_progress()
 root.mainloop()
