@@ -3,7 +3,7 @@
 A simple, lightweight music player built using Python, CustomTkinter, and Pygame. Play your .mp3 files, control playback, and monitor progress—all with a sleek, semi-transparent GUI.
 
 ## Screenshot
-![Music Player Screenshot](Screenshot%202025-11-17%20124524.png)
+![Music Player Screenshot](Screenshot$202025-11-21$20212841.png)
 
 
 ## Features
