@@ -3,8 +3,7 @@
 A simple, lightweight music player built using Python, CustomTkinter, and Pygame. Play your .mp3 files, control playback, and monitor progress—all with a sleek, semi-transparent GUI.
 
 ## Screenshot
-![Music Player Screenshot](Screenshot$202025-11-21$20212841.png)
-
+![Screenshot](Screenshot%202025-11-21%20212841.png)
 
 ## Features
 
@@ -21,6 +20,8 @@ Volume Slider to set the volume to the desired frequency
 Simple and modern CustomTkinter GUI
 
 Semi-transparent window for a sleek look
+
+Toggle Dark Mode, Light Mode, or just system
 
 ## Requirements
 
@@ -56,6 +57,8 @@ python MusicPlayer.py
 
 - Watch the progress bar track the song’s current position.
 
+- Press the "toggle_light_dark" button to toggle from dark mode, light mode, or system.
+
 ## **OPTIONAL** Make it into an executable
 
 ```bash
@@ -85,8 +88,6 @@ pyinstaller MusicPlayer.py --onefile --noconsole
 - Only plays .mp3 files in the same directory as the script
 
 - Progress bar updates may lag slightly depending on system performance
-
-- Fast forward and rewind reset the Pygame music position, which may briefly restart playback
 
 ## Future Improvements
 
