@@ -10,12 +10,9 @@ import customtkinter
 import pygame
 from mutagen.mp3 import MP3
 import os
+import json
 
 pygame.mixer.init()
-modes = ["Dark", "Light", "system"]
-customtkinter.set_appearance_mode("system")
-colormode = customtkinter.get_appearance_mode()
-customtkinter.set_default_color_theme("blue")
 root = customtkinter.CTk()
 root.title("MusicPlayer")
 root.geometry("600x600")
@@ -133,12 +130,27 @@ fast_forward_button = customtkinter.CTkButton(root, text="->", border_color="gra
 fast_forward_button.place(x=550, y=500)
 
 # Darkmode or Lightmode toggle
+past_setting = "past.json"
+modes = ["Dark", "Light"]
+if os.path.exists(past_setting):
+    with open(past_setting, "r") as f:
+        try:
+            data = json.load(f)
+            colormode = data.get("appearance_mode")
+        except:
+            colormode = "black"
+else:
+    colormode = "black"
+customtkinter.set_appearance_mode(colormode)
+colormode = customtkinter.get_appearance_mode()
 def toggle_light_dark():
     global colormode
     idx = modes.index(colormode)
     colormode = modes[(idx + 1) % len(modes)]
     customtkinter.set_appearance_mode(colormode)
     toggle_button.configure(text=colormode)
+    with open(past_setting, "w") as f:
+        json.dump({"appearance_mode": colormode}, f)
 toggle_button = customtkinter.CTkButton(root,text=str(colormode), width=len(colormode), corner_radius=0, command=toggle_light_dark)
 toggle_button.place(x=300, y=0)
 update_progress()
