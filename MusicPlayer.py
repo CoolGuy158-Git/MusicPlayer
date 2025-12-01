@@ -67,8 +67,8 @@ def play_song(song_name):
 # buttons
 
 # This lets you scroll
-scroll_frame = customtkinter.CTkScrollableFrame(root, width=250, height=580)
-scroll_frame.place(x=10, y=10)
+scroll_frame = customtkinter.CTkScrollableFrame(root, width=250, height=545)
+scroll_frame.place(x=10, y=40)
 
 for s in songs:
     display_name = s if len(s) <= 25 else s[:25] + "..."
@@ -153,5 +153,24 @@ def toggle_light_dark():
         json.dump({"appearance_mode": colormode}, f)
 toggle_button = customtkinter.CTkButton(root,text=str(colormode), width=len(colormode), corner_radius=0, command=toggle_light_dark)
 toggle_button.place(x=300, y=0)
+# Song search
+def search_song(*args):
+    query = search.get().lower()
+    for widget in scroll_frame.winfo_children():
+        widget.destroy()
+    for s in songs:
+        if query in s.lower():
+            display_name = s if len(s) <= 25 else s[:25] + "..."
+            btn = customtkinter.CTkButton(scroll_frame, text=display_name, border_color="gray",hover_color = "gray", command=lambda s=s: play_song(s))
+            btn.pack(pady=2)
+def play_enter(event):
+    if scroll_frame.winfo_children():
+        scroll_frame.winfo_children()[0].invoke()
+search = customtkinter.StringVar()
+search.trace_add("write", search_song)
+search_entry = customtkinter.CTkEntry(root, textvariable=search, corner_radius=20, height=30, width=300,)
+search_entry.place(x=0, y=0)
+search_entry.bind("<Return>", play_enter)
+
 update_progress()
 root.mainloop()
