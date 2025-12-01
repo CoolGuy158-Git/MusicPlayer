@@ -7,21 +7,23 @@ A simple, lightweight music player built using Python, CustomTkinter, and Pygame
 
 ## Features
 
-Browse and play .mp3 files from the project folder
+- Browse and play .mp3 files from the project folder
 
-Play / Pause functionality
+- Play / Pause functionality
 
-Fast Forward and Rewind controls
+- Fast Forward and Rewind controls
 
-Progress Bar to show the current position of the song
+- Progress Bar to show the current position of the song
 
-Volume Slider to set the volume to the desired frequency
+- Volume Slider to set the volume to the desired frequency
 
-Simple and modern CustomTkinter GUI
+- Simple and modern CustomTkinter GUI
 
-Semi-transparent window for a sleek look
+- Semi-transparent window for a sleek look
 
-Toggle Dark Mode, Light Mode, or just system
+- Toggle Dark Mode, Light Mode
+
+- Search feature so you can the song that fits your vibe
 
 ## Requirements
 
