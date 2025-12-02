@@ -35,6 +35,10 @@ A simple, lightweight music player built using Python, CustomTkinter, and Pygame
 
 - Mutagen
 
+- Json
+
+- Os
+
 Install using pip install
 
 ```bash
@@ -43,23 +47,23 @@ pip install customtkinter pygame mutagen
 
 ## How to Use
 
-- Place your .mp3 files in the same directory as the script.
+Place your .mp3 files in the same directory as the script.
 
-- Run the Python script:
+Run the Python script:
 
 ```bash
 python MusicPlayer.py
 ```
 
-- Click on a song button to play it.
+Click on a song button to play it.
 
-- Use the Pause button to pause/resume playback.
+Use the Pause button to pause/resume playback.
 
-- Use -> to fast forward and <- to rewind.
+Use -> to fast forward and <- to rewind.
 
-- Watch the progress bar track the song’s current position.
+Watch the progress bar track the song’s current position.
 
-- Press the "toggle_light_dark" button to toggle from dark mode, light mode, or system.
+Press the "toggle_light_dark" button to toggle from dark mode, light mode, or system.
 
 ## **OPTIONAL** Make it into an executable
 
