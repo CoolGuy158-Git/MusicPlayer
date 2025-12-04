@@ -105,6 +105,8 @@ pyinstaller MusicPlayer.py --onefile --noconsole
 
 - Add GUI themes or custom skins
 
+- Support dynamic resizing
+
 ## License
 
 **MIT License**
